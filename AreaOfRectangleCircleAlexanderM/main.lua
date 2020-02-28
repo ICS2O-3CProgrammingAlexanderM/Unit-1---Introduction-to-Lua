@@ -8,6 +8,11 @@ local myRectangle
 local widthOfRectangle=350
 local heightOfRectangle=200
 local areaOfRectangle
+local radiusOfCircle= 200
+local myCircle
+local areaOfCicle
+local PI = 3.14
+
 
 --set background color
 display.setDefault("background", 20/255, 125/255, 240/255)
@@ -22,7 +27,7 @@ myRectangle=display.newRect(10,10,widthOfRectangle, heightOfRectangle)
 myRectangle.anchorX=0
 myRectangle.anchory=0
 myRectangle.x=20
-myRectangle.y=20
+myRectangle.y=100
 
 --set width of border
 myRectangle.strokeWidth=20
@@ -47,3 +52,8 @@ areaText.y=display.contentHeight/2
 
 --set colour of text
 areaText:setTextColor(1, 1, 1)
+-- Display Circle
+myCircle=display.newCircle(800, 200, radiusOfCircle)
+
+--calculate area
+areaOfCicle= PI*radiusOfCircle*radiusOfCircle
