@@ -8,11 +8,19 @@ local myRectangle
 local widthOfRectangle=350
 local heightOfRectangle=200
 local areaOfRectangle
+<<<<<<< HEAD
 local radiusOfCircle= 200
 local myCircle
 local areaOfCicle
 local PI = 3.14
 
+=======
+local radiusOfCircle=150
+local areaOfCircle
+local myCircle
+local PI=3.14159265
+local areaTextCircle
+>>>>>>> 5d76d51d12f70a760c069d774c813da1f085e80f
 
 --set background color
 display.setDefault("background", 20/255, 125/255, 240/255)
@@ -26,7 +34,11 @@ myRectangle=display.newRect(10,10,widthOfRectangle, heightOfRectangle)
 --anchor the rectangle in top left corner of sctreen
 myRectangle.anchorX=0
 myRectangle.anchory=0
+<<<<<<< HEAD
 myRectangle.x=20
+=======
+myRectangle.x=10
+>>>>>>> 5d76d51d12f70a760c069d774c813da1f085e80f
 myRectangle.y=100
 
 --set width of border
@@ -52,8 +64,33 @@ areaText.y=display.contentHeight/2
 
 --set colour of text
 areaText:setTextColor(1, 1, 1)
+<<<<<<< HEAD
 -- Display Circle
 myCircle=display.newCircle(800, 200, radiusOfCircle)
 
 --calculate area
 areaOfCicle= PI*radiusOfCircle*radiusOfCircle
+=======
+
+--display circle
+myCircle=display.newCircle(800, 200, radiusOfCircle)
+
+--set color
+myCircle:setFillColor(43/255, 255/255, 0/255)
+
+--set border color
+myCircle:setStrokeColor(0.7, 0.1, 0.3)
+
+--find the area
+areaOfCircle=PI*radiusOfCircle*radiusOfCircle
+
+--display the area
+areaTextCircle=display.newText ("The area of this circle, with a radius of "..radiusOfCircle.." pixels is \n"..areaOfCircle.." pixels squared.",0 ,0, Arial, textSize)
+
+--anchor text
+areaTextCircle.anchorY=0
+areaTextCircle.anchorX=0
+areaTextCircle.x=20
+areaTextCircle.y=display.contentHeight/1.4
+
+>>>>>>> 5d76d51d12f70a760c069d774c813da1f085e80f
