@@ -54,7 +54,6 @@ local function MoveShip(event)
 	rocketship.y = rocketship.y - scrollspeedRocket
 	--fade out
 	rocketship.alpha = rocketship.alpha - 0.01
-
 end
 
 --MoveShip will be called over and over
