@@ -55,3 +55,24 @@ end
 
 --Add the Listener
 blueButton:addEventListener("touch", BlueButtonListener)
+
+-- Function: RedButtonListener
+--Input: Touch Listener
+--Output: None
+--Description: When Red button is clicked, it will make text disappear,then make it self invisible and the Blue button visible
+	local function RedButtonListener(touch)
+	if (touch.phase == "began") then
+		blueButton.isVisible = true
+		redButton.isVisible = false
+		textObject.isVisible = false
+	end
+
+		if (touch.phase == "ended") then
+		blueButton.isVisible = true
+		redButton.isVisible = false
+		textObject.isVisible = false
+	end
+end
+
+--Add the Listener
+redButton:addEventListener("touch", RedButtonListener)
