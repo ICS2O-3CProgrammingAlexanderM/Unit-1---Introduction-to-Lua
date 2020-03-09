@@ -2,6 +2,7 @@
 --Name: Alexander
 -- Corse: ICS20/3C
 --Animating Images
+--This program displays 3 images which it moves around, one grows, one fades out and another moves in a parabola.
 -----------------------------------------------------------------------------------------
 
 -- Hide status bar
@@ -24,12 +25,31 @@ fish.y = 300
 jellyFish.x = 200
 jellyFish.y = 100
 
---move Images
+--move Octopus
 local function MoveOctopus(event)
 	--add scrollSpeed to x value
     octopus.x = octopus.x + scrollSpeed
 end
 
 --call event
-Runtime:addEventListener("enterframe", MoveOctopus)
+Runtime:addEventListener("enterFrame", MoveOctopus)
 
+--Move fish
+local function MoveFish(event)
+	-- move in a circle
+	fish.x = fish.x + (math.cos(fish.x))*100
+	fish.y = fish.y + (math.sin(fish.y))*100
+end
+
+--call event
+Runtime:addEventListener("enterFrame", MoveFish)
+
+--move jellyfish
+local function MoveJellyFish(event)
+	-- move in a diagonal line
+	jellyFish.y = jellyFish.y + scrollSpeed
+	jellyFish.x = jellyFish.x + scrollSpeed
+end
+
+--call event
+Runtime:addEventListener("enterFrame", MoveJellyFish)
