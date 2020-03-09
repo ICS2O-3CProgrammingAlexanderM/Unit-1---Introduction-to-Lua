@@ -14,14 +14,15 @@ local octopus = display.newImageRect("Images/Octopus.png", 150, 150)
 local fish = display.newImageRect("Images/Fish.png", 200, 150)
 local jellyFish = display.newImageRect("Images/JellyFish.png", 150, 200)
 local scrollSpeed = 3
+local Radian = 0
 
 --set cordinates
 backgroundImage.x = display.contentWidth/2
 backgroundImage.y = display.contentHeight/2
 octopus.x = display.contentWidth/2
 octopus.y = 600
-fish.x = 900
-fish.y = 300
+fish.x = display.contentWidth/2
+fish.y = display.contentHeight/8
 jellyFish.x = 200
 jellyFish.y = 100
 
@@ -37,8 +38,9 @@ Runtime:addEventListener("enterFrame", MoveOctopus)
 --Move fish
 local function MoveFish(event)
 	-- move in a circle
-	fish.x = fish.x + (math.cos(fish.x))*100
-	fish.y = fish.y + (math.sin(fish.y))*100
+	fish.x = fish.x + (math.cos(Radian))*scrollSpeed
+	fish.y = fish.y + (math.sin(Radian))*scrollSpeed
+	Radian = Radian + 0.01
 end
 
 --call event
