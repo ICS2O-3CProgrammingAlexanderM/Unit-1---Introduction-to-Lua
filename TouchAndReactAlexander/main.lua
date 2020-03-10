@@ -1,6 +1,6 @@
 -----------------------------------------------------------------------------------------
 -- Title: TouchAndReact
--- Name: Your Name
+-- Name: Alexander Matheson
 -- Course: ICS2O/3C
 -- This program displays 2 images, one on top of the other, when the top image is clicked, it turns invisible, displays text and plays a sound.
 -----------------------------------------------------------------------------------------
@@ -59,7 +59,7 @@ blueButton:addEventListener("touch", BlueButtonListener)
 -- Function: RedButtonListener
 --Input: Touch Listener
 --Output: None
---Description: When Red button is clicked, it will make text disappear,then make it self invisible and the Blue button visible
+--Description: When Red button is not clicked, it will make text disappear,then make it self invisible and the Blue button visible
 	local function RedButtonListener(touch)
 	if (touch.phase == "began") then
 		blueButton.isVisible = true
