@@ -2,11 +2,15 @@
 --Name: Alexander
 -- Corse: ICS20/3C
 --Animating Images
---This program displays 3 images which it moves around, one grows, one fades out and another moves in a parabola.
+--This program displays 3 images which it moves around, one grows, one fades out and another moves in a circle.
 -----------------------------------------------------------------------------------------
 
 -- Hide status bar
 display.setStatusBar(display.HiddenStatusBar)
+
+-------------------------------------------------------------------
+--Set Variables and create objects.
+-------------------------------------------------------------------
 
 --Set variables
 local backgroundImage = display.newImageRect("Images/Ocean.jpg", 1024, 768)
@@ -25,6 +29,10 @@ fish.x = display.contentWidth/2
 fish.y = display.contentHeight/8
 jellyFish.x = 200
 jellyFish.y = 100
+
+------------------------------------------------------------------
+--Create functions to move objects
+------------------------------------------------------------------
 
 --move Octopus
 local function MoveOctopus(event)
