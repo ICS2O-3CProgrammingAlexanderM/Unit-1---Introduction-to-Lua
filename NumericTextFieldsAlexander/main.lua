@@ -37,7 +37,7 @@ local function AskQuestion()
 	correctAnswer = randomNumber1 + randomNumber2
 
 	--create question in text object
-	questionObject.text = randomNumber1.. " + " .. randomNumber2 "="
+	questionObject.text = randomNumber1.. " + " .. randomNumber2.. "="
 end
 
 local function HideCorrect()
@@ -91,3 +91,17 @@ correctObject.isVisible= false
 incorrectAnswer = display.newText("Incorrect!", display.contentWidth/2, display.contentHeight*2/3, nil, 50)
 incorrectAnswer:setTextColor(255/255, 255/255, 255/255)
 incorrectAnswer.isVisible= false
+
+--Create numeric field
+numericField = native.newTextField(display.contentWidth/2, display.contentHeight/2, 150, 80)
+numericField.inputType= "number"
+
+--add event listener for numeric field
+numericField:addEventListener("userInput", NumericFieldListener)
+
+-------------------------------------------------------------------------
+--FUNCTION CALLS
+-------------------------------------------------------------------------
+
+--call the function to ask the question
+AskQuestion()
