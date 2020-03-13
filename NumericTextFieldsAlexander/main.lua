@@ -27,6 +27,7 @@ local userAnswer
 local correctAnswer
 local incorrectAnswer
 local Win
+local over
 
 -------------------------------------------------------------
 -- LOCAL FUNCTIONS
@@ -71,6 +72,7 @@ local function ShowOver()
 	questionObject.isVisible = false
 	numericField.isVisible = false
 	over.isVisible = true
+	display.setDefault("background", 0, 0, 0)
 end
 
 local function NumericFieldListener( event )
@@ -136,7 +138,7 @@ correctObject:setTextColor(255/255, 255/255, 255/255)
 correctObject.isVisible= false
 
 incorrectAnswer = display.newText("Incorrect!", display.contentWidth/2, display.contentHeight*2/3, nil, 50)
-incorrectAnswer:setTextColor(255/255, 255/255, 255/255)
+incorrectAnswer:setTextColor(178/255, 31/255, 0/255)
 incorrectAnswer.isVisible= false
 
 --Create numeric field
