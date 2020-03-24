@@ -51,17 +51,39 @@ local function AskQuestion()
 	
 	--do subtraction
 	elseif (operation == 2) then
-		correctAnswer = randomNumber1 - randomNumber2
+		if (randomNumber1 < randomNumber2) then
+			correctAnswer =  randomNumber2 - randomNumber1
 
-		--create question in text object
-		questionObject.text = randomNumber1.. " - " .. randomNumber2.. "="
+			--create question in text object
+			questionObject.text = randomNumber2.. " - " .. randomNumber1.. "="
+
+		elseif (randomNumber1 >= randomNumber2) then
+			correctAnswer =  randomNumber1 - randomNumber2
+
+			--create question in text object
+			questionObject.text = randomNumber1.. " - " .. randomNumber2.. "="
+		end
+
+
 	-- do muliplication
 	elseif (operation == 3) then
 		correctAnswer = randomNumber1 * randomNumber2
 
 		--create question in text object
 		questionObject.text = randomNumber1.. " X " .. randomNumber2.. "="
+	
+	--do division
+	elseif (operation == 4) then
+		correctAnswer = randomNumber1 / randomNumber2
 
+		--round the answer to the nearest 10th
+		correctAnswer = correctAnswer * 10
+		correctAnswer = (math.round(correctAnswer))
+		correctAnswer = correctAnswer / 10
+
+		--create question in text object
+		questionObject.text = randomNumber1.." ÷ " ..randomNumber2.. "="
+	end
 end
 
 local function HideCorrect()
@@ -163,7 +185,7 @@ incorrectAnswer.isVisible= false
 
 --Create numeric field
 numericField = native.newTextField(display.contentWidth/2, display.contentHeight/2, 150, 80)
-numericField.inputType= "number"
+numericField.inputType= "decimal"
 
 --add event listener for numeric field
 numericField:addEventListener("userInput", NumericFieldListener)
