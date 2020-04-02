@@ -31,6 +31,18 @@ local over
 local operation
 
 -------------------------------------------------------------
+-- SOUNDS
+-------------------------------------------------------------
+
+--correct sound
+local correctSound = audio.loadSound("Sounds/Correct.wav")
+local correctSoundChannel
+
+--incorrect sound
+local incorrectSound = audio.loadSound("Sounds/Incorrect.mp3")
+local incorrectSoundChannel
+
+-------------------------------------------------------------
 -- LOCAL FUNCTIONS
 -------------------------------------------------------------
 
@@ -138,6 +150,10 @@ local function NumericFieldListener( event )
 			pointsText.text = "Points = ".. points
 
 			correctObject.isVisible = true
+
+			--play sound
+			correctSoundChannel = audio.play(correctSound)
+
 			timer.performWithDelay(2500, HideCorrect)
 			if (points == 5) then
 				timer.performWithDelay(2500, ShowWin)
@@ -150,7 +166,11 @@ local function NumericFieldListener( event )
 			--update text
 			livesText.text = "Lives = " .. lives
 
-			incorrectAnswer.isVisible=true
+			incorrectAnswer.isVisible = true
+
+			--play sound
+			incorrectSoundChannel = audio.play(incorrectSound)
+
 			timer.performWithDelay(2500, HideIncorrect)
 			if (lives == 0) then
 				timer.performWithDelay(2500, ShowOver)

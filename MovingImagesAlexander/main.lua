@@ -9,9 +9,13 @@
 --Hide status bar
 display.setStatusBar(display.HiddenStatusBar)
 
+--play background sound
+local Background = audio.loadStream("Sounds/BackgroundSound.mp3")
+local backgroundMusicChannel = audio.play (Background, { channel=1, loops=-1, fadein=0})
+
 --global variables
 scrollspeed=3
-scrollspeedRocket=7
+scrollspeedRocket=5
 
 --Background image width and height
 local bacgroundImage = display.newImageRect("Images/background.png", 2048, 1536)
