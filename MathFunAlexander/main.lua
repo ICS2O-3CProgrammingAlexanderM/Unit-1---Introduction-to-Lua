@@ -17,6 +17,9 @@ display.setDefault("background", 50/255, 50/255, 255/255)
 
 --Create variables
 local lives = 3
+local heart1
+local heart2
+local heart3
 local points = 0
 local questionObject
 local correctObject
@@ -30,6 +33,11 @@ local Win
 local over
 local operation
 
+--Timer variables
+local totalSeconds = 10
+local secondsLeft = 10
+local clockTimer
+local countDownTimer
 -------------------------------------------------------------
 -- SOUNDS
 -------------------------------------------------------------
@@ -108,25 +116,36 @@ local function HideIncorrect()
 	AskQuestion()
 end
 
+local function HideTime()
+	secondsLeft = totalSeconds + 1
+	clockText.isVisible = false
+end
+local function ShowTime()
+	secondsLeft = totalSeconds + 1
+	clockText.isVisible = true
+end
+
 local function ShowWin()
 	correctObject.isVisible = false
 	incorrectAnswer.isVisible = false
 	pointsText.isVisible = false
-	livesText.isVisible = false
 	questionObject.isVisible = false
 	numericField.isVisible = false
 	win.isVisible = true
+	HideTime()
+	timer.cancel( countDownTimer )
 end
 
 local function ShowOver()
 	correctObject.isVisible = false
 	incorrectAnswer.isVisible = false
 	pointsText.isVisible = false
-	livesText.isVisible = false
 	questionObject.isVisible = false
 	numericField.isVisible = false
 	over.isVisible = true
 	display.setDefault("background", 0, 0, 0)
+	HideTime()
+	timer.cancel( countDownTimer )
 end
 
 local function NumericFieldListener( event )
@@ -154,7 +173,10 @@ local function NumericFieldListener( event )
 			--play sound
 			correctSoundChannel = audio.play(correctSound)
 
+			HideTime()
+
 			timer.performWithDelay(2500, HideCorrect)
+			timer.performWithDelay(2000, ShowTime)
 			if (points == 5) then
 				timer.performWithDelay(2500, ShowWin)
 			end
@@ -163,15 +185,24 @@ local function NumericFieldListener( event )
 			--update lives
 			lives = lives - 1
 
-			--update text
-			livesText.text = "Lives = " .. lives
+			--hide the hearts
+			if ( lives == 2 ) then
+				heart3.isVisible = false
+			elseif ( lives == 1 ) then
+				heart2.isVisible = false
+			elseif ( lives == 0 ) then
+				heart3.isVisible = false
+			end
 
 			incorrectAnswer.isVisible = true
 
 			--play sound
 			incorrectSoundChannel = audio.play(incorrectSound)
 
+			HideTime()
+
 			timer.performWithDelay(2500, HideIncorrect)
+			timer.performWithDelay(2000, ShowTime)
 			if (lives == 0) then
 				timer.performWithDelay(2500, ShowOver)
 			end
@@ -180,15 +211,48 @@ local function NumericFieldListener( event )
 	end
 end
 
+local function UpdateTime( event )
+	--bring down the number of seconds
+	secondsLeft = secondsLeft - 1
+
+	clockText.text = "".. secondsLeft
+
+	if (secondsLeft == 0) then
+
+		incorrectAnswer.text = "Out of time, the answer was: "..correctAnswer
+		incorrectAnswer.isVisible = true
+
+		HideTime()
+
+		timer.performWithDelay(2000, HideIncorrect)
+		timer.performWithDelay(2000, ShowTime)
+
+		AskQuestion()
+		incorrectSoundChannel = audio.play(incorrectSound)
+		lives = lives - 1
+		if ( lives == 2 ) then
+			heart3.isVisible = false
+			secondsLeft = totalSeconds
+		elseif ( lives == 1 ) then
+			heart2.isVisible = false
+			secondsLeft = totalSeconds
+		elseif ( lives == 0 ) then
+			heart1.isVisible = false
+			timer.performWithDelay(2020,ShowOver)
+		end
+	end
+end
+
+local function StartTimer()
+	-- Create a timer
+	countDownTimer = timer.performWithDelay(1000, UpdateTime, 0)
+end
 --------------------------------------------------------------
 --OBJECT CREATION
 --------------------------------------------------------------
 
 --Display amount of points as a text object
-pointsText = display.newText("Points = " .. points, display.contentWidth-150, display.contentHeight/8, nil, 50)
-
---display lives as a text object
-livesText = display.newText("Lives = ".. lives, 150, display.contentHeight/8, nil, 50)
+pointsText = display.newText("Points = " .. points, display.contentWidth/2, display.contentHeight/3, nil, 50)
 
 --Displays a question and sets color
 questionObject = display.newText("", display.contentWidth/3, display.contentHeight/2, nil, 50)
@@ -218,9 +282,28 @@ win.isVisible = false
 over = display.newText("Game Over", display.contentWidth/2, display.contentHeight/2, nil, 50)
 over:setTextColor(178/255, 31/255, 0/255)
 over.isVisible = false
+
+--Create lives display
+heart1 = display.newImageRect("Images/heart.png", 100, 100)
+heart1.x = display.contentWidth * 7/8
+heart1.y = display.contentHeight * 1/7
+
+heart2 = display.newImageRect("Images/heart.png", 100, 100)
+heart2.x = display.contentWidth * 6/8
+heart2.y = display.contentHeight * 1/7
+
+heart3 = display.newImageRect("Images/heart.png", 100, 100)
+heart3.x = display.contentWidth * 5/8
+heart3.y = display.contentHeight * 1/7
+
+--number of seconds left
+clockText = display.newText(""..secondsLeft, display.contentWidth/2, display.contentHeight/2 + 120, nil, 50)
 -------------------------------------------------------------------------
 --FUNCTION CALLS
 -------------------------------------------------------------------------
 
 --call the function to ask the question
 AskQuestion()
+
+--restart the timer
+StartTimer()
